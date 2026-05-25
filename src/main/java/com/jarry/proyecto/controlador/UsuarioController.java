@@ -1,46 +1,57 @@
 package com.jarry.proyecto.controlador;
 
 import com.jarry.proyecto.modelo.Usuario;
-import com.jarry.proyecto.servicio.UsuarioService;
+import com.jarry.proyecto.servicio.UsuarioService; // Asegúrate de importar tu interfaz de servicio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioService servicio;
+    private UsuarioService usuarioService;
 
-    @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("listaUsuarios", servicio.listarTodos());
-        return "usuarios/lista";
+    // Ruta inicial
+    @GetMapping("/")
+    public String index() {
+        return "index";
     }
 
-    @GetMapping("/nuevo")
+    // Listar
+    @GetMapping("/usuarios")
+    public String listarUsuarios(Model model) {
+        model.addAttribute("usuarios", usuarioService.listarTodos()); // Asegúrate que este método exista en tu servicio
+        return "usuarios/listar"; // apunta al HTML
+    }
+
+    // Mostrar formulario para nuevo
+    @GetMapping("/usuarios/nuevo")
     public String mostrarFormulario(Model model) {
-        model.addAttribute("usuarioObjeto", new Usuario());
+        model.addAttribute("usuario", new Usuario());
         return "usuarios/formulario";
     }
 
-    @PostMapping("/guardar")
-    public String guardar(@ModelAttribute("usuarioObjeto") Usuario usuario) {
-        servicio.guardar(usuario);
+    // Guardar o Actualizar
+    @PostMapping("/usuarios/guardar")
+    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
+        usuarioService.guardar(usuario);
         return "redirect:/usuarios";
     }
 
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model) {
-        model.addAttribute("usuarioObjeto", servicio.obtenerPorId(id));
+    // Editar
+    @GetMapping("/usuarios/editar/{id}")
+    public String editarUsuario(@PathVariable Long id, Model model) {
+        Usuario usuario = usuarioService.obtenerPorId(id);
+        model.addAttribute("usuario", usuario);
         return "usuarios/formulario";
     }
 
-    @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
-        servicio.eliminar(id);
+    // Eliminar
+    @GetMapping("/usuarios/eliminar/{id}")
+    public String eliminarUsuario(@PathVariable Long id) {
+        usuarioService.eliminar(id);
         return "redirect:/usuarios";
     }
 }

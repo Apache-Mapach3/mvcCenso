@@ -1,7 +1,6 @@
 package com.jarry.proyecto.modelo;
 
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Entity
@@ -13,35 +12,33 @@ public class Censo {
     private Long id;
 
     private String nombre;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate fecha;
-
+    private LocalDate fecha; // Se mapea como DATE en SQL
     private String pais;
     private String departamento;
     private String ciudad;
     private String casa;
 
-    private Integer numHombres;
-    private Integer numMujeres;
-    private Integer numAncianosHombres;
-    private Integer numAncianasMujeres;
-    private Integer numNinos;
-    private Integer numNinas;
-    private Integer numHabitaciones;
-    private Integer numCamas;
+    private int numHombres;
+    private int numMujeres;
+    private int numAncianosHombres;
+    private int numAncianasMujeres;
+    private int numNinos;
+    private int numNinas;
+    private int numHabitaciones;
+    private int numCamas;
 
-    private Boolean tieneAgua;
-    private Boolean tieneLuz;
-    private Boolean tieneAlcantarillado;
-    private Boolean tieneGas;
-    private Boolean tieneOtrosServicios;
+    private boolean tieneAgua;
+    private boolean tieneLuz;
+    private boolean tieneAlcantarillado;
+    private boolean tieneGas;
+    private boolean tieneOtrosServicios;
 
     private String nombreSensador;
 
+    // CONSTRUCTOR VACÍO OBLIGATORIO PARA JPA
     public Censo() {}
 
-    // Getters y Setters
+    // ... AGREGA AQUÍ TODOS LOS GETTERS Y SETTERS DE ESTOS ATRIBUTOS ...
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNombre() { return nombre; }
@@ -56,32 +53,32 @@ public class Censo {
     public void setCiudad(String ciudad) { this.ciudad = ciudad; }
     public String getCasa() { return casa; }
     public void setCasa(String casa) { this.casa = casa; }
-    public Integer getNumHombres() { return numHombres; }
-    public void setNumHombres(Integer numHombres) { this.numHombres = numHombres; }
-    public Integer getNumMujeres() { return numMujeres; }
-    public void setNumMujeres(Integer numMujeres) { this.numMujeres = numMujeres; }
-    public Integer getNumAncianosHombres() { return numAncianosHombres; }
-    public void setNumAncianosHombres(Integer numAncianosHombres) { this.numAncianosHombres = numAncianosHombres; }
-    public Integer getNumAncianasMujeres() { return numAncianasMujeres; }
-    public void setNumAncianasMujeres(Integer numAncianasMujeres) { this.numAncianasMujeres = numAncianasMujeres; }
-    public Integer getNumNinos() { return numNinos; }
-    public void setNumNinos(Integer numNinos) { this.numNinos = numNinos; }
-    public Integer getNumNinas() { return numNinas; }
-    public void setNumNinas(Integer numNinas) { this.numNinas = numNinas; }
-    public Integer getNumHabitaciones() { return numHabitaciones; }
-    public void setNumHabitaciones(Integer numHabitaciones) { this.numHabitaciones = numHabitaciones; }
-    public Integer getNumCamas() { return numCamas; }
-    public void setNumCamas(Integer numCamas) { this.numCamas = numCamas; }
-    public Boolean getTieneAgua() { return tieneAgua; }
-    public void setTieneAgua(Boolean tieneAgua) { this.tieneAgua = tieneAgua; }
-    public Boolean getTieneLuz() { return tieneLuz; }
-    public void setTieneLuz(Boolean tieneLuz) { this.tieneLuz = tieneLuz; }
-    public Boolean getTieneAlcantarillado() { return tieneAlcantarillado; }
-    public void setTieneAlcantarillado(Boolean tieneAlcantarillado) { this.tieneAlcantarillado = tieneAlcantarillado; }
-    public Boolean getTieneGas() { return tieneGas; }
-    public void setTieneGas(Boolean tieneGas) { this.tieneGas = tieneGas; }
-    public Boolean getTieneOtrosServicios() { return tieneOtrosServicios; }
-    public void setTieneOtrosServicios(Boolean tieneOtrosServicios) { this.tieneOtrosServicios = tieneOtrosServicios; }
+    public int getNumHombres() { return numHombres; }
+    public void setNumHombres(int numHombres) { this.numHombres = numHombres; }
+    public int getNumMujeres() { return numMujeres; }
+    public void setNumMujeres(int numMujeres) { this.numMujeres = numMujeres; }
+    public int getNumAncianosHombres() { return numAncianosHombres; }
+    public void setNumAncianosHombres(int numAncianosHombres) { this.numAncianosHombres = numAncianosHombres; }
+    public int getNumAncianasMujeres() { return numAncianasMujeres; }
+    public void setNumAncianasMujeres(int numAncianasMujeres) { this.numAncianasMujeres = numAncianasMujeres; }
+    public int getNumNinos() { return numNinos; }
+    public void setNumNinos(int numNinos) { this.numNinos = numNinos; }
+    public int getNumNinas() { return numNinas; }
+    public void setNumNinas(int numNinas) { this.numNinas = numNinas; }
+    public int getNumHabitaciones() { return numHabitaciones; }
+    public void setNumHabitaciones(int numHabitaciones) { this.numHabitaciones = numHabitaciones; }
+    public int getNumCamas() { return numCamas; }
+    public void setNumCamas(int numCamas) { this.numCamas = numCamas; }
+    public boolean isTieneAgua() { return tieneAgua; }
+    public void setTieneAgua(boolean tieneAgua) { this.tieneAgua = tieneAgua; }
+    public boolean isTieneLuz() { return tieneLuz; }
+    public void setTieneLuz(boolean tieneLuz) { this.tieneLuz = tieneLuz; }
+    public boolean isTieneAlcantarillado() { return tieneAlcantarillado; }
+    public void setTieneAlcantarillado(boolean tieneAlcantarillado) { this.tieneAlcantarillado = tieneAlcantarillado; }
+    public boolean isTieneGas() { return tieneGas; }
+    public void setTieneGas(boolean tieneGas) { this.tieneGas = tieneGas; }
+    public boolean isTieneOtrosServicios() { return tieneOtrosServicios; }
+    public void setTieneOtrosServicios(boolean tieneOtrosServicios) { this.tieneOtrosServicios = tieneOtrosServicios; }
     public String getNombreSensador() { return nombreSensador; }
     public void setNombreSensador(String nombreSensador) { this.nombreSensador = nombreSensador; }
 }

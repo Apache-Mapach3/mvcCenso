@@ -22,7 +22,7 @@ public class UsuarioController {
     // Listar
     @GetMapping("/usuarios")
     public String listarUsuarios(Model model) {
-        model.addAttribute("usuarios", usuarioService.listarTodos()); // Asegúrate que este método exista en tu servicio
+        model.addAttribute("usuarios", usuarioService.listarTodos());
         return "usuarios/listar"; // apunta al HTML
     }
 

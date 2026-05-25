@@ -17,6 +17,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Fecha</th>
+                <th>País</th>
                 <th>Ciudad</th>
                 <th>Sensador</th>
                 <th>Acciones</th>
@@ -28,6 +29,7 @@
                 <td th:text="${censo.fecha}">Fecha</td>
                 <td th:text="${censo.ciudad}">Ciudad</td>
                 <td th:text="${censo.nombreSensador}">Sensador</td>
+                <td th:text="${censo.pais}">País</td>
                 <td>
                     <a th:href="@{/censos/editar/{id}(id=${censo.id})}" class="btn btn-warning btn-sm">Editar</a>
                     <a th:href="@{/censos/eliminar/{id}(id=${censo.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar registro?');">Eliminar</a>

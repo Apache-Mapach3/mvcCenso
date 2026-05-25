@@ -13,14 +13,23 @@ public class CensoServiceImpl implements CensoService {
     private CensoRepository repositorio;
 
     @Override
-    public List<Censo> listarTodos() { return repositorio.findAll(); }
+    public List<Censo> listarTodos() {
+        return repositorio.findAll();
+    }
 
     @Override
-    public Censo guardar(Censo censo) { return repositorio.save(censo); }
+    public Censo guardar(Censo censo) {
+        return repositorio.save(censo);
+    }
 
     @Override
-    public Censo obtenerPorId(Long id) { return repositorio.findById(id).orElse(null); }
+    public Censo obtenerPorId(Long id) {
+        return repositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Censo no encontrado con id: " + id));
+    }
 
     @Override
-    public void eliminar(Long id) { repositorio.deleteById(id); }
+    public void eliminar(Long id) {
+        repositorio.deleteById(id);
+    }
 }

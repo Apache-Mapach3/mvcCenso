@@ -2,41 +2,182 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Censos</title>
+    <title>Censos - Sistema de Gestión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 2rem 0;
+        }
+        .glass-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+        .page-title {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .page-title span {
+            background: linear-gradient(90deg, #48bb78, #9ae6b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-new {
+            background: linear-gradient(90deg, #48bb78, #9ae6b4);
+            border: none;
+            color: #1a1a2e;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 0.5rem 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .btn-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(72,187,120,0.35);
+            color: #1a1a2e;
+        }
+        .btn-back {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            padding: 0.5rem 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .btn-back:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .divider {
+            border: none;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 1.5rem 0;
+        }
+        .table-custom {
+            color: rgba(255,255,255,0.85);
+            border-collapse: separate;
+            border-spacing: 0 6px;
+        }
+        .table-custom thead tr th {
+            background: rgba(72,187,120,0.12);
+            color: #48bb78;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            padding: 0.9rem 1rem;
+        }
+        .table-custom thead tr th:first-child { border-radius: 10px 0 0 10px; }
+        .table-custom thead tr th:last-child  { border-radius: 0 10px 10px 0; }
+        .table-custom tbody tr td {
+            background: rgba(255,255,255,0.03);
+            border: none;
+            padding: 0.9rem 1rem;
+            vertical-align: middle;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .table-custom tbody tr td:first-child {
+            border-left: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px 0 0 10px;
+        }
+        .table-custom tbody tr td:last-child {
+            border-right: 1px solid rgba(255,255,255,0.05);
+            border-radius: 0 10px 10px 0;
+        }
+        .table-custom tbody tr:hover td { background: rgba(255,255,255,0.06); }
+        .ciudad-badge {
+            background: rgba(72,187,120,0.12);
+            color: #9ae6b4;
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.8rem;
+        }
+        .fecha-text { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+        .btn-edit {
+            background: rgba(237,191,63,0.15);
+            border: 1px solid rgba(237,191,63,0.25);
+            color: #edbf3f;
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 0.82rem;
+            transition: all 0.2s;
+        }
+        .btn-edit:hover { background: rgba(237,191,63,0.28); color: #edbf3f; }
+        .btn-delete {
+            background: rgba(252,129,129,0.12);
+            border: 1px solid rgba(252,129,129,0.22);
+            color: #fc8181;
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 0.82rem;
+            transition: all 0.2s;
+        }
+        .btn-delete:hover { background: rgba(252,129,129,0.25); color: #fc8181; }
+        .empty-state {
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            padding: 3rem 0;
+        }
+        .empty-state i { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+    </style>
 </head>
 <body>
-<div class="container mt-4">
-    <h2>Registros del Censo</h2>
-    <a th:href="@{/censos/nuevo}" class="btn btn-primary mb-3">Registrar Nuevo Censo</a>
-    <a th:href="@{/}" class="btn btn-secondary mb-3">Volver al Inicio</a>
+<div class="container-fluid px-4 py-2">
+    <div class="glass-card">
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-sm">
-            <thead class="table-dark">
-            <tr>
-                <th>Nombre</th>
-                <th>Fecha</th>
-                <th>País</th>
-                <th>Ciudad</th>
-                <th>Sensador</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="censo : ${censos}">
-                <td th:text="${censo.nombre}">Nombre</td>
-                <td th:text="${censo.fecha}">Fecha</td>
-                <td th:text="${censo.ciudad}">Ciudad</td>
-                <td th:text="${censo.nombreSensador}">Sensador</td>
-                <td th:text="${censo.pais}">País</td>
-                <td>
-                    <a th:href="@{/censos/editar/{id}(id=${censo.id})}" class="btn btn-warning btn-sm">Editar</a>
-                    <a th:href="@{/censos/eliminar/{id}(id=${censo.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar registro?');">Eliminar</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h2 class="page-title mb-0"><i class="bi bi-house-fill me-2" style="color:#48bb78;font-size:1.4rem;"></i>Gestión de <span>Censos</span></h2>
+            <div class="d-flex gap-2">
+                <a th:href="@{/censos/nuevo}" class="btn btn-new"><i class="bi bi-plus-lg me-1"></i>Nuevo Censo</a>
+                <a th:href="@{/}" class="btn btn-back"><i class="bi bi-house me-1"></i>Inicio</a>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="table-responsive">
+            <table class="table table-custom w-100">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>País</th>
+                    <th>Ciudad</th>
+                    <th>Sensador</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="censo : ${censos}">
+                    <td th:text="${censo.nombre}">Nombre</td>
+                    <td><span class="fecha-text" th:text="${censo.fecha}">Fecha</span></td>
+                    <td th:text="${censo.pais}">País</td>
+                    <td><span class="ciudad-badge" th:text="${censo.ciudad}">Ciudad</span></td>
+                    <td th:text="${censo.nombreSensador}">Sensador</td>
+                    <td>
+                        <a th:href="@{/censos/editar/{id}(id=${censo.id})}" class="btn btn-edit me-1"><i class="bi bi-pencil-fill me-1"></i>Editar</a>
+                        <a th:href="@{/censos/eliminar/{id}(id=${censo.id})}" class="btn btn-delete" onclick="return confirm('¿Eliminar este censo?');"><i class="bi bi-trash-fill me-1"></i>Eliminar</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(censos)}">
+                    <td colspan="6">
+                        <div class="empty-state">
+                            <i class="bi bi-inbox"></i>
+                            No hay censos registrados aún.
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 </body>

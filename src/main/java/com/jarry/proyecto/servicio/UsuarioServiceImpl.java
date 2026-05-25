@@ -13,14 +13,23 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioRepository repositorio;
 
     @Override
-    public List<Usuario> listarTodos() { return repositorio.findAll(); }
+    public List<Usuario> listarTodos() {
+        return repositorio.findAll();
+    }
 
     @Override
-    public Usuario guardar(Usuario usuario) { return repositorio.save(usuario); }
+    public Usuario guardar(Usuario usuario) {
+        return repositorio.save(usuario);
+    }
 
     @Override
-    public Usuario obtenerPorId(Long id) { return repositorio.findById(id).orElse(null); }
+    public Usuario obtenerPorId(Long id) {
+        return repositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
+    }
 
     @Override
-    public void eliminar(Long id) { repositorio.deleteById(id); }
+    public void eliminar(Long id) {
+        repositorio.deleteById(id);
+    }
 }

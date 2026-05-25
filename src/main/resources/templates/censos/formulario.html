@@ -4,68 +4,250 @@
     <meta charset="UTF-8">
     <title>Formulario Censo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 2rem 0;
+        }
+        .glass-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+        .page-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .page-title span {
+            background: linear-gradient(90deg, #48bb78, #9ae6b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .divider {
+            border: none;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 1.5rem 0;
+        }
+        .section-label {
+            color: #48bb78;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(72,187,120,0.2);
+        }
+        .form-label {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+        .form-control {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            color: #fff;
+            padding: 0.6rem 0.9rem;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            background: rgba(255,255,255,0.09);
+            border-color: #48bb78;
+            box-shadow: 0 0 0 3px rgba(72,187,120,0.15);
+            color: #fff;
+        }
+        .form-control::placeholder { color: #ffffff; }
+        .check-wrapper {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+        .form-check-input {
+            background-color: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            width: 1.1em;
+            height: 1.1em;
+            cursor: pointer;
+        }
+        .form-check-input:checked {
+            background-color: #48bb78;
+            border-color: #48bb78;
+        }
+        .form-check-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.88rem;
+            cursor: pointer;
+        }
+        .btn-save {
+            background: linear-gradient(90deg, #48bb78, #9ae6b4);
+            border: none;
+            color: #1a1a2e;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 0.7rem 2rem;
+            transition: all 0.3s;
+        }
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(72,187,120,0.35);
+            color: #1a1a2e;
+        }
+        .btn-cancel {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.65);
+            border-radius: 10px;
+            padding: 0.7rem 2rem;
+            transition: all 0.3s;
+        }
+        .btn-cancel:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    </style>
 </head>
 <body>
-<div class="container mt-4 mb-5">
-    <h2>Formulario de Censo</h2>
+<div class="container py-2">
+    <div class="glass-card">
 
-    <form th:action="@{/censos/guardar}" th:object="${censo}" method="post">
-        <input type="hidden" th:field="*{id}" />
+        <h2 class="page-title">
+            <i class="bi bi-house-fill me-2" style="color:#48bb78;"></i>
+            <span th:text="${censo.id == null ? 'Nuevo Censo' : 'Editar Censo'}">Censo</span>
+        </h2>
 
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>Nombre del Censo:</label>
-                <input type="text" th:field="*{nombre}" class="form-control" />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Fecha:</label>
-                <input type="date" th:field="*{fecha}" class="form-control" />
-            </div>
-            <div class="col-md-4 mb-3"><label>País:</label><input type="text" th:field="*{pais}" class="form-control" /></div>
-            <div class="col-md-4 mb-3"><label>Departamento:</label><input type="text" th:field="*{departamento}" class="form-control" /></div>
-            <div class="col-md-4 mb-3"><label>Ciudad:</label><input type="text" th:field="*{ciudad}" class="form-control" /></div>
-            <div class="col-md-6 mb-3"><label>Casa:</label><input type="text" th:field="*{casa}" class="form-control" /></div>
-            <div class="col-md-6 mb-3"><label>Nombre del Sensador:</label><input type="text" th:field="*{nombreSensador}" class="form-control" /></div>
+        <hr class="divider">
 
-            <h4 class="mt-4">Datos de Población</h4>
-            <div class="col-md-2 mb-3"><label>Hombres:</label><input type="number" th:field="*{numHombres}" class="form-control" value="0"/></div>
-            <div class="col-md-2 mb-3"><label>Mujeres:</label><input type="number" th:field="*{numMujeres}" class="form-control" value="0"/></div>
-            <div class="col-md-2 mb-3"><label>Ancianos (H):</label><input type="number" th:field="*{numAncianosHombres}" class="form-control" value="0"/></div>
-            <div class="col-md-2 mb-3"><label>Ancianas (M):</label><input type="number" th:field="*{numAncianasMujeres}" class="form-control" value="0"/></div>
-            <div class="col-md-2 mb-3"><label>Niños:</label><input type="number" th:field="*{numNinos}" class="form-control" value="0"/></div>
-            <div class="col-md-2 mb-3"><label>Niñas:</label><input type="number" th:field="*{numNinas}" class="form-control" value="0"/></div>
+        <form th:action="@{/censos/guardar}" th:object="${censo}" method="post">
+            <input type="hidden" th:field="*{id}" />
 
-            <h4 class="mt-4">Vivienda y Servicios</h4>
-            <div class="col-md-6 mb-3"><label>Num Habitaciones:</label><input type="number" th:field="*{numHabitaciones}" class="form-control" value="0"/></div>
-            <div class="col-md-6 mb-3"><label>Num Camas:</label><input type="number" th:field="*{numCamas}" class="form-control" value="0"/></div>
-
-            <div class="col-md-12 mb-3">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" th:field="*{tieneAgua}">
-                    <label class="form-check-label">Agua</label>
+            <!-- Información general -->
+            <div class="section-label"><i class="bi bi-info-circle"></i> Información General</div>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">Nombre del Censo</label>
+                    <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Censo Barrio El Centro" />
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" th:field="*{tieneLuz}">
-                    <label class="form-check-label">Luz</label>
+                <div class="col-md-3">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" th:field="*{fecha}" class="form-control" />
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" th:field="*{tieneAlcantarillado}">
-                    <label class="form-check-label">Alcantarillado</label>
+                <div class="col-md-3">
+                    <label class="form-label">Nombre del Sensador</label>
+                    <input type="text" th:field="*{nombreSensador}" class="form-control" placeholder="Responsable" />
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" th:field="*{tieneGas}">
-                    <label class="form-check-label">Gas</label>
+                <div class="col-md-4">
+                    <label class="form-label">País</label>
+                    <input type="text" th:field="*{pais}" class="form-control" placeholder="Colombia" />
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" th:field="*{tieneOtrosServicios}">
-                    <label class="form-check-label">Otros Servicios</label>
+                <div class="col-md-4">
+                    <label class="form-label">Departamento</label>
+                    <input type="text" th:field="*{departamento}" class="form-control" placeholder="Bolívar" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Ciudad</label>
+                    <input type="text" th:field="*{ciudad}" class="form-control" placeholder="Cartagena" />
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Casa / Dirección</label>
+                    <input type="text" th:field="*{casa}" class="form-control" placeholder="Calle 10 #5-32" />
                 </div>
             </div>
-        </div>
 
-        <button type="submit" class="btn btn-success mt-3">Guardar Registro</button>
-        <a th:href="@{/censos}" class="btn btn-secondary mt-3">Cancelar</a>
-    </form>
+            <!-- Población -->
+            <div class="section-label"><i class="bi bi-people"></i> Datos de Población</div>
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-md-2">
+                    <label class="form-label">Hombres</label>
+                    <input type="number" th:field="*{numHombres}" class="form-control" value="0" min="0" />
+                </div>
+                <div class="col-6 col-md-2">
+                    <label class="form-label">Mujeres</label>
+                    <input type="number" th:field="*{numMujeres}" class="form-control" value="0" min="0" />
+                </div>
+                <div class="col-6 col-md-2">
+                    <label class="form-label">Ancianos (H)</label>
+                    <input type="number" th:field="*{numAncianosHombres}" class="form-control" value="0" min="0" />
+                </div>
+                <div class="col-6 col-md-2">
+                    <label class="form-label">Ancianas (M)</label>
+                    <input type="number" th:field="*{numAncianasMujeres}" class="form-control" value="0" min="0" />
+                </div>
+                <div class="col-6 col-md-2">
+                    <label class="form-label">Niños</label>
+                    <input type="number" th:field="*{numNinos}" class="form-control" value="0" min="0" />
+                </div>
+                <div class="col-6 col-md-2">
+                    <label class="form-label">Niñas</label>
+                    <input type="number" th:field="*{numNinas}" class="form-control" value="0" min="0" />
+                </div>
+            </div>
+
+            <!-- Vivienda -->
+            <div class="section-label"><i class="bi bi-door-open"></i> Vivienda</div>
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <label class="form-label">Habitaciones</label>
+                    <input type="number" th:field="*{numHabitaciones}" class="form-control" value="0" min="0" />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Camas</label>
+                    <input type="number" th:field="*{numCamas}" class="form-control" value="0" min="0" />
+                </div>
+            </div>
+
+            <!-- Servicios -->
+            <div class="section-label"><i class="bi bi-lightning-charge"></i> Servicios Públicos</div>
+            <div class="check-wrapper mb-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:field="*{tieneAgua}" id="agua">
+                    <label class="form-check-label" for="agua"><i class="bi bi-droplet me-1"></i>Agua</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:field="*{tieneLuz}" id="luz">
+                    <label class="form-check-label" for="luz"><i class="bi bi-lightbulb me-1"></i>Luz</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:field="*{tieneAlcantarillado}" id="alc">
+                    <label class="form-check-label" for="alc"><i class="bi bi-pipe me-1"></i>Alcantarillado</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:field="*{tieneGas}" id="gas">
+                    <label class="form-check-label" for="gas"><i class="bi bi-fire me-1"></i>Gas</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:field="*{tieneOtrosServicios}" id="otros">
+                    <label class="form-check-label" for="otros"><i class="bi bi-three-dots me-1"></i>Otros</label>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="d-flex gap-2 justify-content-end">
+                <a th:href="@{/censos}" class="btn btn-cancel"><i class="bi bi-x-lg me-1"></i>Cancelar</a>
+                <button type="submit" class="btn btn-save"><i class="bi bi-check-lg me-1"></i>Guardar Registro</button>
+            </div>
+
+        </form>
+    </div>
 </div>
 </body>
 </html>
